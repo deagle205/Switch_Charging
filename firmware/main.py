@@ -139,7 +139,7 @@ INA226_BUS_V_LSB = 1.25e-3       # 1.25 mV per bit
 INA226_SHUNT_V_LSB = 2.5e-6      # 2.5 uV per bit
 
 # Shunt resistor value
-SHUNT_RESISTOR = 0.1  # 100 mOhm
+SHUNT_RESISTOR = 0.05  # 50 mOhm (V2 PCB R_SH_* = 0R05)
 
 # INA226 CONFIG register field layout:
 #   bits 11-9  AVG       (8 codes → 1, 4, 16, 64, 128, 256, 512, 1024)
