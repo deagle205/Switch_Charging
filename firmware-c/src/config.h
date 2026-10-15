@@ -52,7 +52,7 @@ typedef enum {
 // INA226 LSB constants.
 #define INA226_BUS_V_LSB    1.25e-3f   // V/bit
 #define INA226_SHUNT_V_LSB  2.5e-6f    // V/bit
-#define SHUNT_RESISTOR_OHM  0.1f       // 100 mΩ
+#define SHUNT_RESISTOR_OHM  0.05f      // 50 mΩ (V2 PCB R_SH_* = 0R05)
 
 // CONFIG register field codes.
 //   AVG    bits [11:9]  (1, 4, 16, 64, 128, 256, 512, 1024)
