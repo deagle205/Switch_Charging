@@ -370,11 +370,13 @@ class CommandServer:
                 if not isinstance(measured, list) or len(measured) != 4:
                     return {"ok": False, "error": "Need measured_a: [P1, P2, N1, N2]"}
                 cal = self._mc._gpio.get_calibration()
-                if cal is None:
+                if cal is None or any(ch not in cal for ch in range(4)):
+                    # A truncated U reply can lose channels. Refuse rather
+                    # than rewrite a missing channel with a default gain.
                     return {"ok": False, "error": "Failed to query calibration"}
                 applied = {}
                 for ch, m in enumerate(measured):
-                    gain, offset = cal.get(ch, (1.0, 0.0))
+                    gain, offset = cal[ch]
                     c, g, o = self._mc._gpio.set_calibration(ch, gain, offset - float(m))
                     if c is None:
                         return {"ok": False, "error": f"Firmware rejected offset for ch {ch}",
