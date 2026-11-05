@@ -118,17 +118,17 @@ static void cmd_I(void) {
     ina226_read_all_fast(r);
     // Match main.py: OK I <json>. Keep keys in SENSOR_ORDER.
     // We only emit entries for sensors that are present (matches main.py).
-    fputs("OK I {", stdout);
+    printf("OK I {");
     bool first = true;
     for (int i = 0; i < INA226_NUM_SENSORS; ++i) {
         if (!ina226_is_present((sensor_idx_t)i)) continue;
-        if (!first) fputs(", ", stdout);
+        if (!first) printf(", ");
         printf("\"%s\": {\"voltage\": %.4f, \"current\": %.6f}",
                ina226_name((sensor_idx_t)i),
                (double)r[i].bus_v, (double)r[i].current_a);
         first = false;
     }
-    fputs("}\n", stdout);
+    printf("}\n");
 }
 
 static void cmd_T(size_t nt, const token_t *tk) {
@@ -472,7 +472,7 @@ static void cmd_W(size_t nt, const token_t *tk) {
 }
 
 static void cmd_U(void) {
-    fputs("OK U", stdout);
+    printf("OK U");
     for (int i = 0; i < INA226_NUM_SENSORS; ++i) {
         float g, o;
         ina226_cal_get((sensor_idx_t)i, &g, &o);
